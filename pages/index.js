@@ -1,5 +1,6 @@
 import { MainLayout } from "components/MainLayout";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home({ products }) {
   return (
@@ -8,28 +9,31 @@ export default function Home({ products }) {
         <h1>Список товаров</h1>
         <section className="catalog">
           {products.map((product) => (
-            <div key={product.id} className="catalog-item">
+            <Link
+              key={product.id}
+              href={`/product/[id]}`}
+              as={`/product/${product.id}`}
+              className="item">
               <Image
-                className="catalog-item__img"
+                className="item__img"
                 src={product.image}
                 alt={product.title}
                 width={150}
                 height={200}
               />
-              <span className="catalog-item__category">{product.category}</span>
-              <p className="catalog-item__title">{product.title}</p>
-              <p className="catalog-item__desc">{product.description}</p>
-              <div className="catalog-item__info">
+              <span className="item__category">{product.category}</span>
+              <p className="item__title">{product.title}</p>
+              <p className="item__desc">{product.description}</p>
+              <div className="item__info">
                 <span>{product.price} $</span>
-                <div className="catalog-item__info_rating">
+                <div className="item__info_rating">
                   <span>Рейтинг: {product.rating.rate}</span>
                   <span>Количество: {product.rating.count}</span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </section>
-        <pre>{JSON.stringify(products, null, 2)}</pre>
       </MainLayout>
     </>
   );
