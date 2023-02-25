@@ -1,24 +1,23 @@
 import { MainLayout } from "components/MainLayout";
 import { Formik } from "formik";
+import axios from "axios";
+import { Context } from "../context";
+import { useContext } from "react";
 
 export default function Auth({}) {
-  async function handleClick(values) {
-    const response = await fetch("https://fakestoreapi.com/auth/login", {
-      method: "POST",
-      body: JSON.stringify({
-        username: "mor_2314@fsjfl",
-        password: "83r5^_",
-      }),
-    })
-      .then(() => {
-        alert("Товар добавлен");
-        router.push("/");
-      })
-      .catch(() => {
-        alert("Что-то пошло не так");
-      });
+  const { addToken, getToken } = useContext(Context);
 
-    console.log(response);
+  async function handleClick(values) {
+    axios({
+      url: "https://fakestoreapi.com/auth/login",
+      method: "POST",
+      data: {
+        username: "mor_2314",
+        password: "83r5^_",
+      },
+    }).then((res) => {
+      addToken(res.data.token);
+    });
   }
   return (
     <>
@@ -28,9 +27,7 @@ export default function Auth({}) {
           <Formik
             initialValues={{ password: "", email: "" }}
             onSubmit={(values) => {
-              console.log("ki");
               handleClick(values);
-              console.log("ki2");
             }}>
             {(props) => (
               <form onSubmit={props.handleSubmit} className="form">
