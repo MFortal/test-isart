@@ -1,10 +1,12 @@
-import { MainLayout } from "components/MainLayout";
+import { useContext } from "react";
 import { Formik } from "formik";
 import axios from "axios";
 import { Context } from "../context";
-import { useContext } from "react";
+import { MainLayout } from "@/components/MainLayout";
+import Input from "@/components/Input";
+import Button from "@/components/Button";
 
-export default function Auth({}) {
+export default function Auth() {
   const { addToken, getToken } = useContext(Context);
 
   async function handleClick(values) {
@@ -25,45 +27,32 @@ export default function Auth({}) {
         <h1>Авторизация</h1>
         <section className="create-section">
           <Formik
-            initialValues={{ password: "", email: "" }}
+            initialValues={{ email: "", password: "" }}
             onSubmit={(values) => {
               handleClick(values);
             }}>
             {(props) => (
               <form onSubmit={props.handleSubmit} className="form">
-                <div className="field">
-                  <label htmlFor="email" className="field__label">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    className="field__input"
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    value={props.values.email}
-                  />
-                </div>
-                <div className="field">
-                  <label htmlFor="password" className="field__label">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    name="password"
-                    className="field__input"
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    value={props.values.password}
-                  />
-                </div>
-                <div className="field">
-                  <input
-                    type="submit"
-                    value="Войти"
-                    className="field__button"
-                  />
-                </div>
+                <Input
+                  value={props.values.email}
+                  name={"email"}
+                  type={"text"}
+                  id={"email"}
+                  labelText={"Email"}
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                />
+
+                <Input
+                  value={props.values.password}
+                  name={"password"}
+                  type={"password"}
+                  id={"password"}
+                  labelText={"Пароль"}
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                />
+                <Button buttonText={"Войти"} />
               </form>
             )}
           </Formik>
