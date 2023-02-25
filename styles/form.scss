@@ -51,4 +51,44 @@
     color: #fff;
     font-weight: 600;
     cursor: pointer;
+
+    &_err {
+        color: inherit;
+        background-color: inherit;
+    }
+}
+
+.btns {
+    display: flex;
+    gap: 30px;
+
+    &__btn {
+        max-width: 95px;
+    }
+}
+
+.delete {
+    margin-bottom: 30px;
+}
+
+.details-view {
+    flex-direction: column;
+
+    &__title {
+        text-align: center;
+    }
+
+    &__block {
+        flex-direction: row;
+        max-width: 100%;
+        justify-content: space-evenly;
+
+        &_info {
+            max-width: 40%;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: flex-start;
+        }
+    }
 }
