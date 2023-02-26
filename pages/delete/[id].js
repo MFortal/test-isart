@@ -1,32 +1,53 @@
-import { MainLayout } from "components/MainLayout";
-import { useRouter } from "next/router";
+import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
+
+import { MainLayout } from "components/MainLayout";
 
 export default function ProductDelete({ product }) {
   const router = useRouter();
+  const [load, setLoad] = useState();
+  const [status, setStatus] = useState();
 
   const handleDelete = async (id) => {
+    setLoad(true);
     fetch(`https://fakestoreapi.com/products/${id}`, {
       method: "DELETE",
     })
-      .then((res) => res.json())
-      .then((json) => {
-        alert(`Товар с id=${json.id} успешно удален`);
-        router.push("/");
+      .then(() => {
+        setStatus({
+          success: true,
+          description: "Товар успешно удален",
+        });
+        setTimeout(() => {
+          router.push("/");
+        }, 3000);
       })
       .catch(() => {
-        alert("Что-то пошло не так");
-      });
+        alert(err);
+        setStatus({
+          success: false,
+          description: "Товар не удален. Попробуйте снова",
+        });
+      })
+      .finally(() => setLoad(false));
   };
 
   const handleCancel = () => {
-    alert("Товар не удален");
-    router.push("/");
+    setStatus({
+      success: false,
+      description: "Товар не удален",
+    });
+    setTimeout(() => {
+      router.push("/");
+    }, 3000);
   };
 
   return (
     <>
       <MainLayout title="Удаление товара">
+        {load && <p>Ждем ответа от сервера...</p>}
+        {status && <div className="status">{status.description}</div>}
         <section className="delete">
           <h3>Удалить товар &quot;{product.title}&quot;?</h3>
           <div className="btns">

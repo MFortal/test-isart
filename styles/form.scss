@@ -19,37 +19,34 @@
         min-height: 44px;
         border: unset;
         border-radius: 4px;
-        outline-color: rgb(84 105 212 / 0.5);
-        background-color: rgb(255, 255, 255);
-        box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-            rgba(60, 66, 87, 0.16) 0px 0px 0px 1px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-            rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+        outline-color: $outline-color;
+        background-color: $main-color;
+        box-shadow: $shadow-color;
     }
 
     &__button {
-        background-color: rgb(84, 105, 212);
-        box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-            rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgb(84, 105, 212) 0px 0px 0px 1px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-            rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(60, 66, 87, 0.08) 0px 2px 5px 0px;
-        color: #fff;
+        background-color: $bg-blue;
+        color: $main-color;
         font-weight: 600;
         cursor: pointer;
 
         &_err {
             color: inherit;
             background-color: inherit;
+
+            &:active {
+                background-color: inherit;
+            }
         }
     }
 }
 
 .form {
-    //padding: 40px;
     max-width: 550px;
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    //margin-left: -40px;
 }
 
 .btns {
@@ -66,17 +63,17 @@
 }
 
 .status {
-    background-color: #3e6f89;
-    color: white;
+    background-color: $bg-status;
+    color: $main-color;
     padding: 6px 20px;
     border-radius: 5px;
     width: max-content;
     font-size: 1rem;
-    margin-top: 10px;
+    margin: 10px 0;
 }
 
 .feedback {
-    color: red;
+    color: $color-feedback;
     font-size: 1rem;
 }
 
@@ -86,6 +83,7 @@
         flex-direction: column;
         font-size: 1.2rem;
         margin-left: 25px;
+        margin-bottom: 10px;
     }
 
     &-view {

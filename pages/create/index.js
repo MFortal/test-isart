@@ -1,12 +1,19 @@
 import { Formik } from "formik";
+import { useState } from "react";
+import { useRouter } from "next/router";
+
 import { MainLayout } from "components/MainLayout";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import Select from "@/components/Select";
 
-export default function CreateProduct({ products }) {
-  async function handleClick(values) {
-    const response = await fetch("https://fakestoreapi.com/users", {
+export default function CreateProduct() {
+  const [load, setLoad] = useState();
+  const [status, setStatus] = useState();
+  const router = useRouter();
+
+  const handleClick = async (values) => {
+    fetch("https://fakestoreapi.com/users", {
       method: "POST",
       body: JSON.stringify({
         title: values.title,
@@ -18,19 +25,29 @@ export default function CreateProduct({ products }) {
       }),
     })
       .then(() => {
-        alert("Товар добавлен");
-        router.push("/");
+        setStatus({
+          success: true,
+          description: "Товар добавлен",
+        });
+        setTimeout(() => {
+          router.push("/");
+        }, 3000);
       })
-      .catch(() => {
-        alert("Что-то пошло не так");
-      });
-
-    console.log(response);
-  }
+      .catch((err) => {
+        alert(err);
+        setStatus({
+          success: false,
+          description: "Товар не добавлен",
+        });
+      })
+      .finally(() => setLoad(false));
+  };
   return (
     <>
       <MainLayout title={"Добавление товара"}>
         <h1>Добавление товара</h1>
+        {load && <p>Ждем ответа от сервера...</p>}
+        {status && <div className="status">{status.description}</div>}
         <section className="create-section">
           <Formik
             initialValues={{
@@ -43,9 +60,7 @@ export default function CreateProduct({ products }) {
               count: "",
             }}
             onSubmit={(values) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-              }, 1000);
+              setLoad(true);
               handleClick(values);
             }}>
             {(props) => (
@@ -58,6 +73,7 @@ export default function CreateProduct({ products }) {
                   labelText={"Наименование"}
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
+                  required
                 />
                 <Input
                   value={props.values.description}
@@ -67,6 +83,7 @@ export default function CreateProduct({ products }) {
                   labelText={"Описание"}
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
+                  required
                 />
                 <Input
                   value={props.values.price}
@@ -76,6 +93,7 @@ export default function CreateProduct({ products }) {
                   labelText={"Цена"}
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
+                  required
                 />
 
                 <Select
@@ -95,6 +113,7 @@ export default function CreateProduct({ products }) {
                   labelText={"Изображение"}
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
+                  required
                 />
 
                 <Input
@@ -105,6 +124,7 @@ export default function CreateProduct({ products }) {
                   labelText={"Рейтинг"}
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
+                  required
                 />
 
                 <Input
@@ -115,6 +135,7 @@ export default function CreateProduct({ products }) {
                   labelText={"Количество"}
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
+                  required
                 />
                 <Button buttonText={"Добавить товар"} />
               </form>

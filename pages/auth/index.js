@@ -1,19 +1,20 @@
 import { useContext, useState } from "react";
-import { Formik } from "formik";
 import axios from "axios";
-import { Context } from "../context";
+import { Formik } from "formik";
 import { useRouter } from "next/router";
+
+import { Context } from "../context";
 import { MainLayout } from "@/components/MainLayout";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 
 export default function Auth() {
-  const [load, setLoad] = useState(false);
+  const [load, setLoad] = useState();
   const [status, setStatus] = useState();
-  const { addToken, getToken } = useContext(Context);
+  const { addToken } = useContext(Context);
   const router = useRouter();
 
-  async function handleClick(values) {
+  const handleClick = async (values) => {
     axios({
       url: "https://fakestoreapi.com/auth/login",
       method: "POST",
@@ -25,7 +26,9 @@ export default function Auth() {
       .then((res) => {
         addToken(res.data.token);
         setStatus({ success: true, description: "Вход успешно осуществлен" });
-        router.push("/");
+        setTimeout(() => {
+          router.push("/");
+        }, 3000);
       })
       .catch((err) => {
         alert(err);
@@ -35,7 +38,7 @@ export default function Auth() {
         });
       })
       .finally(() => setLoad(false));
-  }
+  };
 
   const validate = (values) => {
     const errors = {};
@@ -76,6 +79,7 @@ export default function Auth() {
                   labelText={"Email"}
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
+                  required
                 />
 
                 <Input
@@ -86,6 +90,7 @@ export default function Auth() {
                   labelText={"Пароль"}
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
+                  required
                 />
                 {props.errors.password && (
                   <div className="feedback">{props.errors.password}</div>

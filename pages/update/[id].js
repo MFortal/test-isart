@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Formik } from "formik";
 import { useRouter } from "next/router";
+
 import { MainLayout } from "components/MainLayout";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
@@ -7,34 +9,47 @@ import Button from "@/components/Button";
 
 export default function UpdateProduct({ product }) {
   const router = useRouter();
+  const [load, setLoad] = useState();
+  const [status, setStatus] = useState();
 
-  async function handleClick(product) {
-    const response = await fetch(
-      `https://fakestoreapi.com/products/${product.id}`,
-      {
-        method: "PUT",
-        body: JSON.stringify({
-          title: product.title,
-          price: product.price,
-          description: product.description,
-          category: product.category,
-          image: product.image,
-          rating: { rate: product.rate, count: product.count },
-        }),
-      }
-    )
+  const handleClick = async (product) => {
+    setLoad(true);
+    fetch(`https://fakestoreapi.com/products/${product.id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        title: product.title,
+        price: product.price,
+        description: product.description,
+        category: product.category,
+        image: product.image,
+        rating: { rate: product.rate, count: product.count },
+      }),
+    })
       .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        alert("Товар изменен");
-        router.push("/");
+      .then(() => {
+        setStatus({
+          success: true,
+          description: "Товар успешно изменен",
+        });
+        setTimeout(() => {
+          router.push("/");
+        }, 3000);
       })
-      .catch((err) => alert(err));
-  }
+      .catch((err) => {
+        alert(err);
+        setStatus({
+          success: false,
+          description: "Товар не изменен. Попробуйте снова",
+        });
+      })
+      .finally(() => setLoad(false));
+  };
   return (
     <>
       <MainLayout title={"Изменение товара"}>
         <h1>Изменение товара</h1>
+        {load && <p>Ждем ответа от сервера...</p>}
+        {status && <div className="status">{status.description}</div>}
         <section className="create-section">
           <Formik
             initialValues={{
@@ -60,6 +75,7 @@ export default function UpdateProduct({ product }) {
                   labelText={"Наименование"}
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
+                  required
                 />
                 <Input
                   value={props.values.description}
@@ -69,6 +85,7 @@ export default function UpdateProduct({ product }) {
                   labelText={"Описание"}
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
+                  required
                 />
                 <Input
                   value={props.values.price}
@@ -78,6 +95,7 @@ export default function UpdateProduct({ product }) {
                   labelText={"Цена"}
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
+                  required
                 />
 
                 <Select
@@ -97,6 +115,7 @@ export default function UpdateProduct({ product }) {
                   labelText={"Изображение"}
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
+                  required
                 />
 
                 <Input
@@ -107,6 +126,7 @@ export default function UpdateProduct({ product }) {
                   labelText={"Рейтинг"}
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
+                  required
                 />
 
                 <Input
@@ -117,8 +137,9 @@ export default function UpdateProduct({ product }) {
                   labelText={"Количество"}
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
+                  required
                 />
-                <Button buttonText={"Добавить товар"} />
+                <Button buttonText={"Изменить товар"} />
               </form>
             )}
           </Formik>

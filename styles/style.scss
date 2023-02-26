@@ -1,6 +1,6 @@
 body {
-    background-color: #fff;
-    color: #282a2b;
+    background-color: $main-color;
+    color: $main-dark-color;
     font-size: 24px;
     line-height: 130%;
     font-family: "Manrope", sans-serif;
@@ -24,7 +24,7 @@ a {
 button:active {
     position: relative;
     top: 1px;
-    background-color: #282a2b;
+    background-color: $main-dark-color;
 }
 
 .main {
@@ -51,7 +51,7 @@ button:active {
     &:hover {
         transform: scale(1.05);
         transition: 0.5s;
-        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        box-shadow: $shadow-hover;
     }
 
     &__title {
@@ -72,7 +72,7 @@ button:active {
         font-size: 0.8rem;
         line-height: 1;
         padding: 5px 9px;
-        background-color: #87dcde;
+        background-color: $bg-status;
         font-weight: 600;
         border-radius: 5px;
     }
@@ -98,7 +98,7 @@ button:active {
     width: 100%;
 
     &__item:hover path {
-        fill: blue;
+        fill: $bg-blue;
     }
 }
 
