@@ -1,10 +1,9 @@
-import "styles/normalize.css";
 import "styles/main.scss";
 import { Context } from "./context.js";
 import { useState } from "react";
 
 export default function App({ Component, pageProps }) {
-  const [token, setToken] = useState("6467");
+  const [token, setToken] = useState();
 
   const getToken = () => {
     return token;

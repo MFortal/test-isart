@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-export function MainLayout({ children, title = "Next App" }) {
+export function MainLayout({ children, title = "Инетренет магазин" }) {
   return (
     <>
       <Head>

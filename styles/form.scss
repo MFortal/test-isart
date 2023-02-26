@@ -1,61 +1,55 @@
-.formbg {
-    &-inner {
-        margin: 0px auto;
-        width: 100%;
-        max-width: 448px;
-        background: white;
-        border-radius: 4px;
-        box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
-        padding: 48px;
-    }
-}
-.field__label {
-    font-size: 1.1rem;
-    font-weight: 600;
+.field {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 8px;
+
+    &__label {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    &__input,
+    &__button {
+        font-size: 16px;
+        line-height: 28px;
+        padding: 8px 16px;
+        width: 100%;
+        box-sizing: border-box;
+        min-height: 44px;
+        border: unset;
+        border-radius: 4px;
+        outline-color: rgb(84 105 212 / 0.5);
+        background-color: rgb(255, 255, 255);
+        box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+            rgba(60, 66, 87, 0.16) 0px 0px 0px 1px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+            rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+    }
+
+    &__button {
+        background-color: rgb(84, 105, 212);
+        box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+            rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgb(84, 105, 212) 0px 0px 0px 1px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+            rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(60, 66, 87, 0.08) 0px 2px 5px 0px;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+
+        &_err {
+            color: inherit;
+            background-color: inherit;
+        }
+    }
 }
 
 .form {
-    padding: 40px;
-    max-width: 40%;
+    //padding: 40px;
+    max-width: 550px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-left: -40px;
-}
-
-.field__input,
-.field__button {
-    font-size: 16px;
-    line-height: 28px;
-    padding: 8px 16px;
-    width: 100%;
-    box-sizing: border-box;
-    min-height: 44px;
-    border: unset;
-    border-radius: 4px;
-    outline-color: rgb(84 105 212 / 0.5);
-    background-color: rgb(255, 255, 255);
-    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-        rgba(60, 66, 87, 0.16) 0px 0px 0px 1px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-        rgba(0, 0, 0, 0) 0px 0px 0px 0px;
-}
-
-.field__button {
-    background-color: rgb(84, 105, 212);
-    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.12) 0px 1px 1px 0px,
-        rgb(84, 105, 212) 0px 0px 0px 1px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-        rgba(60, 66, 87, 0.08) 0px 2px 5px 0px;
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-
-    &_err {
-        color: inherit;
-        background-color: inherit;
-    }
+    //margin-left: -40px;
 }
 
 .btns {
@@ -69,28 +63,6 @@
 
 .delete {
     margin-bottom: 30px;
-}
-
-.details-view {
-    flex-direction: column;
-
-    &__title {
-        text-align: center;
-    }
-
-    &__block {
-        flex-direction: row;
-        max-width: 100%;
-        justify-content: space-evenly;
-
-        &_info {
-            max-width: 40%;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            align-items: flex-start;
-        }
-    }
 }
 
 .status {
@@ -114,5 +86,27 @@
         flex-direction: column;
         font-size: 1.2rem;
         margin-left: 25px;
+    }
+
+    &-view {
+        flex-direction: column;
+
+        &__title {
+            text-align: center;
+        }
+
+        &__block {
+            flex-direction: row;
+            max-width: 100%;
+            justify-content: space-evenly;
+
+            &_info {
+                max-width: 40%;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                align-items: flex-start;
+            }
+        }
     }
 }

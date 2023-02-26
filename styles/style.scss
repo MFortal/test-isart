@@ -8,7 +8,7 @@ body {
 
 h1 {
     font-weight: 800;
-    font-size: 56px;
+    font-size: 2rem;
     line-height: 115%;
 }
 
@@ -28,7 +28,7 @@ button:active {
 }
 
 .main {
-    padding: 80px;
+    padding: 5%;
     overflow: hidden;
 }
 
@@ -92,6 +92,16 @@ button:active {
     }
 }
 
+.icons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    &__item:hover path {
+        fill: blue;
+    }
+}
+
 .view {
     display: flex;
     justify-content: space-around;
@@ -107,5 +117,13 @@ button:active {
         gap: 10px;
         align-items: flex-start;
         max-width: 50%;
+    }
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+
+    &__item {
+        font-size: 1.4rem;
     }
 }
